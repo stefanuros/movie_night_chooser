@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// This file handles the home page
+
 // Main function that runs the MyApp function
 void main() => runApp(MyApp());
 
@@ -13,19 +15,14 @@ class MyApp extends StatelessWidget {
 				accentColor: Colors.teal,
 				brightness: Brightness.dark,
 			),
-			home: MyHomePage(),
+			home: HomePage(),
 		);
 	}
 }
 
-class MyHomePage extends StatefulWidget {
 
-	@override
-	_MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
+class HomePage extends StatelessWidget
+{
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
