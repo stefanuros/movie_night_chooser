@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'joinPage.dart';
+import 'roomPage.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -27,7 +28,12 @@ class HomePage extends StatelessWidget {
 						// Heading for the home page
 						HomePageTitle("Welcome to the Movie Night Movie Chooser"),
 						// Create Room Button
-						RoundedTealButton("Create New Room", () {}),
+						RoundedTealButton("Create New Room", () {
+							Navigator.push(
+								context,
+								MaterialPageRoute(builder: (context) => RoomPage()),
+							);
+						}),
 						// Join Room Button
 						RoundedTealButton("Join Existing Room", () {
 							Navigator.push(
