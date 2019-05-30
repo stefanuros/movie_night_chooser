@@ -1,113 +1,149 @@
 import 'package:flutter/material.dart';
 
+// Main function that runs the MyApp function
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-	// This widget is the root of your application.
 	@override
 	Widget build(BuildContext context) {
+		// The first widget
 		return MaterialApp(
-			title: 'Flutter Demo',
-			theme: ThemeData(
-				// This is the theme of your application.
-				//
-				// Try running your application with "flutter run". You'll see the
-				// application has a blue toolbar. Then, without quitting the app, try
-				// changing the primarySwatch below to Colors.green and then invoke
-				// "hot reload" (press "r" in the console where you ran "flutter run",
-				// or simply save your changes to "hot reload" in a Flutter IDE).
-				// Notice that the counter didn't reset back to zero; the application
-				// is not restarted.
-				// primarySwatch: Colors.deepOrange,
-				accentColor: Colors.purpleAccent,
+			title: 'Movie Night Chooser',
+			theme: ThemeData( 
+				accentColor: Colors.teal,
 				brightness: Brightness.dark,
 			),
-			home: MyHomePage(title: 'Flutter Demo Home Page'),
+			home: MyHomePage(),
 		);
 	}
 }
 
 class MyHomePage extends StatefulWidget {
-	MyHomePage({Key key, this.title}) : super(key: key);
-
-	// This widget is the home page of your application. It is stateful, meaning
-	// that it has a State object (defined below) that contains fields that affect
-	// how it looks.
-
-	// This class is the configuration for the state. It holds the values (in this
-	// case the title) provided by the parent (in this case the App widget) and
-	// used by the build method of the State. Fields in a Widget subclass are
-	// always marked "final".
-
-	final String title;
 
 	@override
 	_MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-	int _counter = 0;
 
-	void _incrementCounter() {
-		setState(() {
-			// This call to setState tells the Flutter framework that something has
-			// changed in this State, which causes it to rerun the build method below
-			// so that the display can reflect the updated values. If we changed
-			// _counter without calling setState(), then the build method would not be
-			// called again, and so nothing would appear to happen.
-			_counter += 1;
-		});
-	}
+	// The dialog text
+	final String dialogText = """To create a room where you and your friends submit movies to be chosen, press \"Create New Room\". You will create a room where your friends can join and submit movies to be chosen.
+	
+	To join an already existing room, press \"Join Existing Room\". You will need to enter the code of the room you would like to join, or scan a QR code. The code can be found at the top of the page of the room you want to join.
+
+	To choose a movie with only one device, follow the steps for creating a room and submit all the movies from the same device.""";
 
 	@override
 	Widget build(BuildContext context) {
-		// This method is rerun every time setState is called, for instance as done
-		// by the _incrementCounter method above.
-		//
-		// The Flutter framework has been optimized to make rerunning build methods
-		// fast, so that you can just rebuild anything that needs updating rather
-		// than having to individually change instances of widgets.
 		return Scaffold(
-			appBar: AppBar(
-				// Here we take the value from the MyHomePage object that was created by
-				// the App.build method, and use it to set our appbar title.
-				title: Text(widget.title),
-			),
+			// appBar: AppBar(
+			// 	backgroundColor: Colors.teal,
+			// 	title: Text("Movie Night Chooser"),
+			// ),
 			body: Center(
-				// Center is a layout widget. It takes a single child and positions it
-				// in the middle of the parent.
 				child: Column(
-					// Column is also layout widget. It takes a list of children and
-					// arranges them vertically. By default, it sizes itself to fit its
-					// children horizontally, and tries to be as tall as its parent.
-					//
-					// Invoke "debug painting" (press "p" in the console, choose the
-					// "Toggle Debug Paint" action from the Flutter Inspector in Android
-					// Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-					// to see the wireframe for each widget.
-					//
-					// Column has various properties to control how it sizes itself and
-					// how it positions its children. Here we use mainAxisAlignment to
-					// center the children vertically; the main axis here is the vertical
-					// axis because Columns are vertical (the cross axis would be
-					// horizontal).
 					mainAxisAlignment: MainAxisAlignment.center,
+					crossAxisAlignment: CrossAxisAlignment.stretch,
 					children: <Widget>[
-						Text(
-							'You have pushed the button this many times:',
+						// Heading for the home page
+						SizedBox(
+							height: MediaQuery.of(context).size.height/2,
+							child: Align(
+								child: SizedBox(
+									width: 300,
+									child: Text(
+										"Welcome to the Movie Night Movie Chooser",
+										style: TextStyle(
+											fontSize: 32,
+											fontWeight: FontWeight.bold,
+											// fontFamily: 'Lato'
+										),
+										textAlign: TextAlign.center
+									)
+								)
+							)
 						),
-						Text(
-							'$_counter',
-							style: Theme.of(context).textTheme.display1,
-						),
+						// Create Room Button
+						HomepageButton("Create New Room", () {}),
+						// Join Room Button
+						HomepageButton("Join Existing Room", () {}),
+						// The Help Button
+						Expanded( // Makes this take up the bottom of the screen
+							child: Align( // Aligns it to the bottomt of the screen
+								alignment: Alignment(0, 1),
+								child: Padding( // Pushes it a little off of the bottom of the screen
+									padding: EdgeInsets.only(bottom: 16),
+									child: FlatButton( // The actual button
+										child: Text( //The help text
+											"Help",
+											style: TextStyle(
+												color: Colors.grey,
+												fontSize: 18
+											),
+										),
+										onPressed: () { //Create a dialog when the button is pressed
+											showDialog(
+												context: context,
+												builder: (_) => new AlertDialog(
+													title: new Text("Instructions"),
+													content: new Text(dialogText),
+													actions: <Widget>[
+														FlatButton(
+															child: Text('OK'),
+															onPressed: () {
+																Navigator.of(context).pop();
+															},
+														),
+													],
+												)
+											);
+										}
+									)
+								)
+							)
+						)
 					],
 				),
 			),
-			floatingActionButton: FloatingActionButton(
-				onPressed: _incrementCounter,
-				tooltip: 'Increment',
-				child: Icon(Icons.add),
-			), // This trailing comma makes auto-formatting nicer for build methods.
+		);
+	}
+}
+
+// The button that will be used on the home page to redirect the user
+class HomepageButton extends StatelessWidget
+{
+	// The text of the button
+	final String buttonText;
+	// The function the button will execute when pressed
+	final Function buttonFunction;
+
+	HomepageButton(this.buttonText, this.buttonFunction);
+
+	Widget build(BuildContext context) 
+	{
+		return Padding(
+			padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+			child: OutlineButton(
+				// highlightColor: Colors.red,
+				borderSide: BorderSide(
+					color: Colors.teal,
+					width: 2
+				),
+				highlightedBorderColor: Colors.teal,
+				shape: RoundedRectangleBorder(
+					borderRadius: BorderRadius.circular(30)
+				),
+				splashColor: Colors.teal[300],
+				padding: EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+				// color: Colors.teal,
+				onPressed: buttonFunction,
+				child: Text(
+					buttonText,
+					style: TextStyle(
+						fontSize: 20
+					)
+				)
+			),
 		);
 	}
 }
