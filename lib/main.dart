@@ -26,13 +26,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-	// The dialog text
-	final String dialogText = """To create a room where you and your friends submit movies to be chosen, press \"Create New Room\". You will create a room where your friends can join and submit movies to be chosen.
-	
-	To join an already existing room, press \"Join Existing Room\". You will need to enter the code of the room you would like to join, or scan a QR code. The code can be found at the top of the page of the room you want to join.
-
-	To choose a movie with only one device, follow the steps for creating a room and submit all the movies from the same device.""";
-
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
@@ -68,43 +61,59 @@ class _MyHomePageState extends State<MyHomePage> {
 						// Join Room Button
 						HomepageButton("Join Existing Room", () {}),
 						// The Help Button
-						Expanded( // Makes this take up the bottom of the screen
-							child: Align( // Aligns it to the bottomt of the screen
-								alignment: Alignment(0, 1),
-								child: Padding( // Pushes it a little off of the bottom of the screen
-									padding: EdgeInsets.only(bottom: 16),
-									child: FlatButton( // The actual button
-										child: Text( //The help text
-											"Help",
-											style: TextStyle(
-												color: Colors.grey,
-												fontSize: 18
-											),
-										),
-										onPressed: () { //Create a dialog when the button is pressed
-											showDialog(
-												context: context,
-												builder: (_) => new AlertDialog(
-													title: new Text("Instructions"),
-													content: new Text(dialogText),
-													actions: <Widget>[
-														FlatButton(
-															child: Text('OK'),
-															onPressed: () {
-																Navigator.of(context).pop();
-															},
-														),
-													],
-												)
-											);
-										}
-									)
-								)
-							)
-						)
+						HelpButton()
 					],
 				),
 			),
+		);
+	}
+}
+
+// Class that defines the help button
+class HelpButton extends StatelessWidget
+{
+	// The dialog text
+	final String dialogText = """To create a room where you and your friends submit movies to be chosen, press \"Create New Room\". You will create a room where your friends can join and submit movies to be chosen.
+	
+	To join an already existing room, press \"Join Existing Room\". You will need to enter the code of the room you would like to join, or scan a QR code. The code can be found at the top of the page of the room you want to join.
+
+	To choose a movie with only one device, follow the steps for creating a room and submit all the movies from the same device.""";
+
+	Widget build(BuildContext context)
+	{
+		return Expanded( // Makes this take up the bottom of the screen
+			child: Align( // Aligns it to the bottomt of the screen
+				alignment: Alignment(0, 1),
+				child: Padding( // Pushes it a little off of the bottom of the screen
+					padding: EdgeInsets.only(bottom: 16),
+					child: FlatButton( // The actual button
+						child: Text( //The help text
+							"Help",
+							style: TextStyle(
+								color: Colors.grey,
+								fontSize: 18
+							),
+						),
+						onPressed: () { //Create a dialog when the button is pressed
+							showDialog(
+								context: context,
+								builder: (_) => new AlertDialog(
+									title: new Text("Instructions"),
+									content: new Text(dialogText),
+									actions: <Widget>[
+										FlatButton(
+											child: Text('OK'),
+											onPressed: () {
+												Navigator.of(context).pop();
+											},
+										),
+									],
+								)
+							);
+						}
+					)
+				)
+			)
 		);
 	}
 }
