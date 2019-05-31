@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'homePage.dart';
+import 'style.dart';
 
 // This file starts the home page widget
 
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
 		return MaterialApp(
 			title: 'Movie Night Chooser',
 			theme: ThemeData( 
-				accentColor: Colors.teal,
+				accentColor: Style.accentColour,
+				// accentColor: Colors.teal,
 				brightness: Brightness.dark,
 			),
 			// Load the home page
