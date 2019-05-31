@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../style.dart';
 
 // The button that will be used on the home page to redirect the user
-class RoundedButton extends StatelessWidget {
+class RegularButton extends StatelessWidget {
 	// The text of the button
 	final String buttonText;
 	// The function the button will execute when pressed
 	final Function buttonFunction;
 
-	RoundedButton(this.buttonText, this.buttonFunction);
+	RegularButton(this.buttonText, this.buttonFunction);
 
 	@override
 	Widget build(BuildContext context) {

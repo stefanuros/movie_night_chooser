@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'joinPage.dart';
 import 'roomPage.dart';
-import 'widgets/roundedButton.dart';
+import 'widgets/regularButton.dart';
 
 class HomePage extends StatelessWidget {
 	// The help dialog text
@@ -28,14 +28,14 @@ class HomePage extends StatelessWidget {
 						// Heading for the home page
 						HomePageTitle("Welcome to the\nMovie Night Movie Chooser"),
 						// Create Room Button
-						RoundedButton("Create New Room", () {
+						RegularButton("Create New Room", () {
 							Navigator.push(
 								context,
 								MaterialPageRoute(builder: (context) => RoomPage()),
 							);
 						}),
 						// Join Room Button
-						RoundedButton("Join Existing Room", () {
+						RegularButton("Join Existing Room", () {
 							Navigator.push(
 								context,
 								MaterialPageRoute(builder: (context) => JoinRoomPage()),
