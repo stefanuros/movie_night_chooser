@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'joinPage.dart';
 import 'roomPage.dart';
-
+import 'widgets/roundedButton.dart';
 
 class HomePage extends StatelessWidget {
 	// The help dialog text
@@ -26,16 +26,16 @@ class HomePage extends StatelessWidget {
 					crossAxisAlignment: CrossAxisAlignment.stretch,
 					children: <Widget>[
 						// Heading for the home page
-						HomePageTitle("Welcome to the Movie Night Movie Chooser"),
+						HomePageTitle("Welcome to the\nMovie Night Movie Chooser"),
 						// Create Room Button
-						RoundedTealButton("Create New Room", () {
+						RoundedButton("Create New Room", () {
 							Navigator.push(
 								context,
 								MaterialPageRoute(builder: (context) => RoomPage()),
 							);
 						}),
 						// Join Room Button
-						RoundedTealButton("Join Existing Room", () {
+						RoundedButton("Join Existing Room", () {
 							Navigator.push(
 								context,
 								MaterialPageRoute(builder: (context) => JoinRoomPage()),
@@ -66,8 +66,8 @@ class HomePageTitle extends StatelessWidget {
 					child: Text(
 						_headerTitle,
 						style: TextStyle(
-							fontSize: 32,
-							fontWeight: FontWeight.bold,
+							fontSize: 34,
+							fontWeight: FontWeight.w200,
 							// fontFamily: 'Lato'
 						),
 						textAlign: TextAlign.center
@@ -90,13 +90,13 @@ class HelpButton extends StatelessWidget {
 			child: Align( // Aligns it to the bottomt of the screen
 				alignment: Alignment(0, 1),
 				child: Padding( // Pushes it a little off of the bottom of the screen
-					padding: EdgeInsets.only(bottom: 16),
+					padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.03),
 					child: FlatButton( // The actual button
 						child: Text( //The help text
 							"Help",
 							style: TextStyle(
 								color: Colors.grey,
-								fontSize: 18
+								fontSize: 20
 							),
 						),
 						onPressed: () { //Create a dialog when the button is pressed
@@ -119,44 +119,6 @@ class HelpButton extends StatelessWidget {
 					)
 				)
 			)
-		);
-	}
-}
-
-// The button that will be used on the home page to redirect the user
-class RoundedTealButton extends StatelessWidget {
-	// The text of the button
-	final String buttonText;
-	// The function the button will execute when pressed
-	final Function buttonFunction;
-
-	RoundedTealButton(this.buttonText, this.buttonFunction);
-
-	@override
-	Widget build(BuildContext context) {
-		return Padding(
-			padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-			child: OutlineButton(
-				// highlightColor: Colors.red,
-				borderSide: BorderSide(
-					color: Colors.teal,
-					width: 2
-				),
-				highlightedBorderColor: Colors.teal,
-				shape: RoundedRectangleBorder(
-					borderRadius: BorderRadius.circular(30)
-				),
-				splashColor: Colors.teal[300],
-				padding: EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-				// color: Colors.teal,
-				onPressed: buttonFunction,
-				child: Text(
-					buttonText,
-					style: TextStyle(
-						fontSize: 20
-					)
-				)
-			),
 		);
 	}
 }
